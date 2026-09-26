@@ -1,0 +1,70 @@
+analyse_offre_task:
+  description: >
+    Analyse l'offre d'emploi suivante.
+
+    TITRE : {offre_titre}
+    EXPÉRIENCE MINIMUM DÉCLARÉE : {experience_min} an(s)
+    TEXTE :
+    {offre_description}
+
+    1. Liste 5 à 12 compétences techniques/métier avec leur niveau (obligatoire | souhaitee) et un poids de 1 à 5.
+    2. Déduis la séniorité, la formation et les langues requises.
+    3. Propose une grille de pondération (competences, experience, formation, langues) dont la somme vaut 100.
+    4. Signale dans alertes_biais toute formulation potentiellement discriminante (liste vide si aucune).
+  expected_output: >
+    La grille d'évaluation de l'offre (objet AnalyseOffre).
+  agent: analyste_offre
+
+evaluation_cvs_task:
+  description: >
+    Voici les CV ANONYMISÉS des candidats (identifiants entre crochets) :
+
+    {cvs_anonymises}
+
+    Pour CHAQUE candidat :
+    1. Appelle l'outil verifier_competences_cv avec son identifiant et la liste des compétences de la grille.
+    2. Note sur 100 : compétences, expérience, formation, langues.
+    3. Calcule score_global = moyenne pondérée selon la grille_ponderation de l'analyse.
+    4. recommandation = forte (>= 75), moyenne (55 à 74), faible (< 55).
+    5. Rédige une justification qui cite des éléments précis du CV. N'invente rien.
+    Classe les candidats par score_global décroissant.
+  expected_output: >
+    La liste des évaluations de tous les candidats (objet EvaluationsLot).
+  agent: evaluateur_cv
+  context:
+    - analyse_offre_task
+
+prequalification_task:
+  description: >
+    Pour chaque candidat dont le score_global est supérieur ou égal à {seuil_preselection},
+    prépare un questionnaire de pré-qualification pour le poste « {offre_titre} » :
+    un message d'accueil (vouvoiement, précise qu'un recruteur humain relira les réponses)
+    puis 4 à 6 questions : motivation, disponibilité / préavis, prétentions salariales (fourchette en MAD),
+    et 1 à 3 questions ciblant ses points de vigilance et compétences manquantes.
+    Si aucun candidat n'atteint le seuil, renvoie une liste vide.
+  expected_output: >
+    Les questionnaires des candidats présélectionnés (objet QuestionnairesLot).
+  agent: charge_prequalification
+  context:
+    - evaluation_cvs_task
+
+planification_task:
+  description: >
+    Créneaux d'entretien disponibles :
+    {creneaux}
+
+    Format : {type_entretien} — lieu ou lien : {lieu}.
+
+    Pour chaque candidat ayant reçu un questionnaire (score >= {seuil_preselection}),
+    par score décroissant :
+    1. Attribue un créneau DISTINCT de la liste (s'il n'y en a pas assez, signale-le dans remarques).
+    2. Rédige l'objet et le corps de l'e-mail d'invitation (date, heure, format, lieu/lien,
+       demande de confirmation). Utilise « Madame, Monsieur » : l'identité est masquée.
+    3. Propose 4 à 6 questions d'entretien ciblant ses points de vigilance.
+    Toutes les propositions ont le statut « À valider par un recruteur ».
+  expected_output: >
+    Le planning proposé (objet PlanningEntretiens).
+  agent: planificateur
+  context:
+    - evaluation_cvs_task
+    - prequalification_task

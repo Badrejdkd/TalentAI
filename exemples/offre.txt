@@ -1,0 +1,11 @@
+Data Scientist confirmé(e) — Casablanca (hybride, CDI)
+EXPERIENCE_MIN: 3
+Au sein de la direction Data & IA, vous concevez des modèles de Machine Learning en production.
+
+Missions : collecte et préparation des données (Python, Pandas, SQL), modélisation (scikit-learn, XGBoost),
+mise en production (Docker, Azure), restitution sous Power BI, veille sur les LLM et LangChain.
+
+Profil : Bac+5 école d'ingénieur ou Master en Data Science, 3 ans d'expérience minimum.
+Maîtrise de Python, SQL, Machine Learning, Git. Docker et Azure appréciés.
+Français courant et Anglais professionnel exigés.
+Salaire : 18 000 – 26 000 MAD net / mois.

@@ -1,0 +1,11 @@
+Yasmine ALAOUI
+yasmine.alaoui@gmail.com | +212 6 61 23 45 67 | Casablanca
+Née le 12/03/1995 - Célibataire
+Data Scientist - 5 ans d'expérience
+EXPÉRIENCE
+2021 - 2026 : Data Scientist, Banque Atlas — modèles de scoring crédit en Python (scikit-learn, XGBoost), SQL Server, déploiement Docker sur Azure, tableaux de bord Power BI.
+2019 - 2021 : Data Analyst, Retail Maroc — Pandas, SQL, Excel, Machine Learning pour la prévision des ventes.
+Projet 2025 : assistant RAG interne avec LangChain et LLM.
+FORMATION : Ingénieur d'État en Data Science — ENSIAS Rabat (2019)
+COMPÉTENCES : Python, Pandas, SQL, Machine Learning, Docker, Azure, Git, Power BI, LangChain
+LANGUES : Français courant, Anglais professionnel (TOEIC 910), Arabe
