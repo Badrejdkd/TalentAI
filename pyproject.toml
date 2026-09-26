@@ -9,7 +9,7 @@ dependencies = [
     "crewai[tools]>=1.10",
     "langchain-community>=0.4",
     "langchain-core>=1.0",
-    "pypdf>=5.0",
+    "pypdf>=4.0,<4.1",
     "docx2txt>=0.8",
     "python-dotenv>=1.0",
 ]
@@ -31,4 +31,3 @@ packages = ["src/talentai_crew"]
 
 [tool.crewai]
 type = "crew"
-project_id = "9279809e-c66b-40a7-ba58-85d591b22622"
